@@ -1,0 +1,37 @@
+{
+  "name": "wanz-req",
+  "version": "1.0.0",
+  "description": "gfarew4",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "keywords": [
+    "ngl",
+    "anonymous",
+    "message",
+    "wanz",
+    "request",
+    "nodejs",
+    "express",
+    "ejs",
+    "mongoose"
+  ],
+  "author": "Wanz Team",
+  "license": "MIT",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "crypto": "^1.0.1",
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "express-rate-limit": "^8.1.0",
+    "express-session": "^1.18.0",
+    "mongoose": "^8.4.0",
+    "qrcode": "^1.5.4"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
+}
