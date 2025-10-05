@@ -1,0 +1,371 @@
+<%- include('partials/header') %>
+
+<style>
+  body {
+    background: #0f0c29;
+    background: -webkit-linear-gradient(to right, #24243e, #302b63, #0f0c29);
+    background: linear-gradient(to right, #24243e, #302b63, #0f0c29);
+    min-height: 100vh;
+    overflow: hidden;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+  }
+
+  #particles-js {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+  }
+
+  .register-container {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+  }
+
+  .glass-card {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    padding: 2.5rem;
+    width: 100%;
+    max-width: 480px;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  .glass-card:hover {
+    transform: translateY(-8px);
+  }
+
+  .form-title {
+    font-weight: 800;
+    font-size: 2.2rem;
+    background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+
+  .form-subtitle {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 2rem;
+    font-size: 1.05rem;
+  }
+
+  .input-group {
+    position: relative;
+    margin-bottom: 1.5rem;
+  }
+
+  .input-icon {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 1.1rem;
+  }
+
+  .form-control {
+    width: 100%;
+    padding: 16px 16px 16px 48px;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 16px;
+    color: white;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+
+  .form-control:focus {
+    outline: none;
+    border-color: #2575fc;
+    background: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 0 0 3px rgba(37, 117, 252, 0.3);
+  }
+
+  .form-control::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+  }
+
+  .toggle-password {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+    font-size: 1.1rem;
+  }
+
+  .btn-register {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, #2575fc, #6a11cb);
+    border: none;
+    border-radius: 16px;
+    color: white;
+    font-weight: 700;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(37, 117, 252, 0.4);
+  }
+
+  .btn-register:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 25px rgba(37, 117, 252, 0.6);
+  }
+
+  .btn-register:active {
+    transform: translateY(0);
+  }
+
+  .divider {
+    display: flex;
+    align-items: center;
+    margin: 1.5rem 0;
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  .divider::before,
+  .divider::after {
+    content: "";
+    flex: 1;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .divider span {
+    padding: 0 12px;
+    font-size: 0.9rem;
+  }
+
+  .login-link {
+    text-align: center;
+    margin-top: 1.5rem;
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .login-link a {
+    color: #a1c4fd;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+
+  .login-link a:hover {
+    text-decoration: underline;
+    color: #c2e9fb;
+  }
+
+  .alert {
+    border-radius: 16px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    background: rgba(255, 50, 50, 0.15);
+    border: 1px solid rgba(255, 100, 100, 0.3);
+    color: #a1c4fd;
+  }
+
+  .form-hint {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.5);
+    margin-top: 0.3rem;
+  }
+
+  .password-strength {
+    height: 6px;
+    background: #444;
+    border-radius: 3px;
+    margin-top: 8px;
+    overflow: hidden;
+  }
+
+  .strength-fill {
+    height: 100%;
+    width: 0%;
+    transition: width 0.3s, background 0.3s;
+    border-radius: 3px;
+  }
+
+  .scroll-indicator {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: bounce 2s infinite;
+  }
+
+  @keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
+    40% { transform: translateY(-10px) translateX(-50%); }
+    60% { transform: translateY(-5px) translateX(-50%); }
+  }
+
+  @media (max-width: 576px) {
+    .glass-card {
+      padding: 2rem;
+    }
+    .form-title {
+      font-size: 1.8rem;
+    }
+  }
+</style>
+
+<div id="particles-js"></div>
+
+<div class="register-container">
+  <div class="glass-card">
+    <h1 class="form-title">Wanz Req</h1>
+    <p class="form-subtitle">Buat akun gratis dalam 30 detik</p>
+
+    <% if (locals.error) { %>
+      <div class="alert">
+        <i class="fas fa-exclamation-triangle me-2"></i><%= error %>
+      </div>
+    <% } %>
+
+    <form action="/register" method="POST">
+      <div class="input-group">
+        <i class="fas fa-at input-icon"></i>
+        <input type="text" class="form-control" name="username" 
+               placeholder="Username" required minlength="3" maxlength="20">
+      </div>
+      <p class="form-hint">Huruf, angka, underscore (3-20 karakter)</p>
+
+      <div class="input-group">
+        <i class="fas fa-link input-icon"></i>
+        <input type="text" class="form-control" name="shortLink" 
+               placeholder="Link pendek (opsional)" maxlength="10">
+      </div>
+      <p class="form-hint">Contoh: wanzreq.com/a123</p>
+
+      <div class="input-group">
+        <i class="fas fa-envelope input-icon"></i>
+        <input type="email" class="form-control" name="email" placeholder="Email" required>
+      </div>
+
+      <div class="input-group">
+        <i class="fas fa-key input-icon"></i>
+        <input type="password" class="form-control" id="password" name="password" 
+               placeholder="Password" required minlength="8">
+        <button type="button" class="toggle-password" id="togglePassword">
+          <i class="fas fa-eye"></i>
+        </button>
+      </div>
+      <div class="password-strength">
+        <div class="strength-fill" id="strengthFill"></div>
+      </div>
+      <p class="form-hint">Minimal 8 karakter, kombinasi huruf & angka</p>
+
+      <button type="submit" class="btn-register">
+        <i class="fas fa-user-plus me-2"></i> Buat Akun
+      </button>
+    </form>
+
+    <div class="divider">
+      <span>SUDAH PUNYA AKUN?</span>
+    </div>
+
+    <div class="login-link">
+      <a href="/login">Masuk di sini</a>
+    </div>
+  </div>
+  
+  <div class="scroll-indicator">
+    <i class="fas fa-chevron-down fa-2x" style="color: rgba(255,255,255,0.5);"></i>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+<script>
+  particlesJS("particles-js", {
+    particles: {
+      number: { value: 80, density: { enable: true, value_area: 800 } },
+      color: { value: "#ffffff" },
+      shape: { type: "circle" },
+      opacity: { value: 0.1, random: true },
+      size: { value: 2, random: true },
+      line_linked: {
+        enable: true,
+        distance: 150,
+        color: "#ffffff",
+        opacity: 0.05,
+        width: 1
+      },
+      move: {
+        enable: true,
+        speed: 0.5,
+        direction: "none",
+        random: true,
+        straight: false,
+        out_mode: "out",
+        bounce: false
+      }
+    },
+    interactivity: {
+      detect_on: "canvas",
+      events: {
+        onhover: { enable: true, mode: "grab" },
+        onclick: { enable: true, mode: "push" },
+        resize: true
+      }
+    },
+    retina_detect: true
+  });
+
+  const toggle = document.getElementById('togglePassword');
+  const password = document.getElementById('password');
+  if (toggle && password) {
+    toggle.addEventListener('click', () => {
+      const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+      password.setAttribute('type', type);
+      toggle.innerHTML = type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+    });
+  }
+
+  // Password strength
+  const passwordInput = document.getElementById('password');
+  const strengthFill = document.getElementById('strengthFill');
+  
+  passwordInput.addEventListener('input', () => {
+    const password = passwordInput.value;
+    let strength = 0;
+    
+    if (password.length >= 8) strength += 25;
+    if (/[A-Z]/.test(password)) strength += 25;
+    if (/[0-9]/.test(password)) strength += 25;
+    if (/[^A-Za-z0-9]/.test(password)) strength += 25;
+    
+    strengthFill.style.width = strength + '%';
+    
+    if (strength < 50) {
+      strengthFill.style.background = '#ff4d4d';
+    } else if (strength < 75) {
+      strengthFill.style.background = '#ffcc00';
+    } else {
+      strengthFill.style.background = '#4caf50';
+    }
+  });
+
+  // Keyboard shortcuts
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'l' && !e.target.matches('input, textarea')) {
+      window.location.href = '/login';
+    }
+  });
+</script>
+
+<%- include('partials/footer') %>

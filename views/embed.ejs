@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <style>
+    body { font-family: sans-serif; margin: 0; padding: 10px; background: #f8f9fa; }
+    .embed { max-width: 300px; background: white; border-radius: 12px; padding: 16px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+    .avatar { font-size: 24px; text-align: center; margin-bottom: 8px; }
+    .username { font-weight: bold; text-align: center; display: block; margin-bottom: 8px; }
+    .bio { font-size: 14px; color: #666; text-align: center; margin-bottom: 12px; }
+    .btn { display: block; width: 100%; padding: 8px; background: #6a11cb; color: white; text-decoration: none; border-radius: 8px; text-align: center; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <div class="embed">
+    <div class="avatar"><%= user.emoji %></div>
+    <span class="username">@<%= user.username %></span>
+    <div class="bio"><%= user.bio %></div>
+    <a href="https://<%= host %>/<%= user.username %>" class="btn" target="_blank">Kirim Pesan Anonim</a>
+  </div>
+</body>
+</html>

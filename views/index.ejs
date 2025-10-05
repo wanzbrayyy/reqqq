@@ -1,0 +1,250 @@
+<%- include('partials/header') %>
+
+<style>
+  .hero-gradient {
+    background: linear-gradient(120deg, #6a11cb 0%, #2575fc 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .floating {
+    animation: floating 6s ease-in-out infinite;
+  }
+
+  @keyframes floating {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0px); }
+  }
+
+  .feature-card {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    padding: 2rem;
+    transition: transform 0.3s, box-shadow 0.3s;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+  }
+
+  .feature-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  }
+
+  .pulse {
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(37, 117, 252, 0.4); }
+    70% { box-shadow: 0 0 0 12px rgba(37, 117, 252, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(37, 117, 252, 0); }
+  }
+
+  .stats-number {
+    font-size: 3rem;
+    font-weight: 800;
+    background: linear-gradient(to right, #6a11cb, #2575fc);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    z-index: -1;
+  }
+
+  .blob-1 {
+    width: 300px;
+    height: 300px;
+    background: #ff2d75;
+    top: 10%;
+    left: 5%;
+    animation: moveBlob 20s infinite alternate;
+  }
+
+  .blob-2 {
+    width: 400px;
+    height: 400px;
+    background: #2575fc;
+    bottom: 10%;
+    right: 5%;
+    animation: moveBlob 25s infinite alternate-reverse;
+  }
+
+  @keyframes moveBlob {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(30px, 30px) scale(1.1); }
+  }
+
+  .btn-glow {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-glow::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: 0.5s;
+  }
+
+  .btn-glow:hover::before {
+    left: 100%;
+  }
+</style>
+
+<!-- Hero Section -->
+<div class="hero-gradient">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="container position-relative z-1">
+    <div class="row align-items-center">
+      <div class="col-lg-6 text-white">
+        <h1 class="display-3 fw-bold mb-4">
+          Kirim Pesan Anonim <br>
+          <span class="text-warning">Tanpa Batas</span>
+        </h1>
+        <p class="lead mb-5" style="font-size: 1.25rem; opacity: 0.95;">
+          Wanz Req memungkinkan kamu menerima pesan jujur, pujian, saran, atau pertanyaan dari siapa saja — <strong>100% anonim</strong> dan <strong>aman</strong>.
+        </p>
+        <div class="d-flex flex-wrap gap-3">
+          <a href="/register" class="btn btn-light btn-lg btn-glow px-4 py-3 fw-bold">
+            <i class="fas fa-rocket me-2"></i> Buat Akun Sekarang
+          </a>
+          <a href="#features" class="btn btn-outline-light btn-lg px-4 py-3 fw-bold">
+            <i class="fas fa-eye me-2"></i> Lihat Fitur
+          </a>
+        </div>
+      </div>
+      <div class="col-lg-6 d-none d-lg-block">
+        <div class="text-center floating">
+          <div class="p-4" style="background: rgba(255,255,255,0.15); border-radius: 30px; backdrop-filter: blur(10px);">
+            <div class="bg-white rounded-4 p-4 shadow" style="max-width: 400px;">
+              <div class="d-flex align-items-center mb-3">
+                <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; font-size: 1.2rem;">
+                  💬
+                </div>
+                <div class="ms-3">
+                  <div class="fw-bold">@wanz_brayy</div>
+                  <div class="text-muted" style="font-size: 0.85rem;">Hai! Kirim aku pesan anonim ya 😊</div>
+                </div>
+              </div>
+              <div class="alert alert-success mb-3 p-2" style="font-size: 0.9rem;">
+                <i class="fas fa-check-circle me-1"></i> Pesan berhasil dikirim!
+              </div>
+              <div class="form-group">
+                <textarea class="form-control" rows="3" placeholder="Tulis pesanmu... (maks 280 karakter)"></textarea>
+                <div class="d-flex justify-content-between mt-2">
+                  <small class="text-muted">0 / 280</small>
+                  <button class="btn btn-success btn-sm">
+                    <i class="fas fa-paper-plane"></i> Kirim
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Features -->
+<section id="features" class="py-5 bg-light">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="fw-bold mb-3">Mengapa Memilih Wanz Req?</h2>
+      <p class="text-muted" style="max-width: 700px; margin: 0 auto;">
+        Platform pesan anonim teraman dan paling menarik untuk generasi muda.
+      </p>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-4">
+        <div class="feature-card h-100">
+          <div class="fs-2 mb-3">🔒</div>
+          <h5 class="fw-bold">100% Anonim</h5>
+          <p class="text-muted">
+            Pengirim tidak perlu login. Identitasmu tetap terlindungi.
+          </p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="feature-card h-100">
+          <div class="fs-2 mb-3">🎨</div>
+          <h5 class="fw-bold">Personalisasi</h5>
+          <p class="text-muted">
+            Atur bio, emoji, warna, dan blokir kata yang tidak diinginkan.
+          </p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="feature-card h-100">
+          <div class="fs-2 mb-3">📊</div>
+          <h5 class="fw-bold">Statistik</h5>
+          <p class="text-muted">
+            Lihat berapa banyak pesan, kategori, dan pesan terpopuler.
+          </p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="feature-card h-100">
+          <div class="fs-2 mb-3">📱</div>
+          <h5 class="fw-bold">Mobile Friendly</h5>
+          <p class="text-muted">
+            Tampil sempurna di HP, tablet, dan desktop.
+          </p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="feature-card h-100">
+          <div class="fs-2 mb-3">🛡️</div>
+          <h5 class="fw-bold">Aman & Terfilter</h5>
+          <p class="text-muted">
+            Filter otomatis untuk kata tidak pantas dan spam.
+          </p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="feature-card h-100">
+          <div class="fs-2 mb-3">🌐</div>
+          <h5 class="fw-bold">Bagikan di Mana Saja</h5>
+          <p class="text-muted">
+            Embed di website, bagikan ke Instagram Story, atau QR Code.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="py-5" style="background: linear-gradient(135deg, #f5f7fa 0%, #e4edff 100%);">
+  <div class="container text-center">
+    <h2 class="fw-bold mb-3">Siap Menerima Pesan Jujur?</h2>
+    <p class="text-muted mb-4">Buat akun dalam 30 detik — gratis selamanya!</p>
+    <a href="/register" class="btn btn-primary btn-lg px-5 py-3 fw-bold pulse">
+      <i class="fas fa-user-plus me-2"></i> Mulai Sekarang
+    </a>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-dark text-light text-center py-4 mt-0">
+  <div class="container">
+    <p class="mb-0">&copy; 2025 Wanz Req. Kirim pesan anonim dengan aman dan bebas.</p>
+  </div>
+</footer>
+
+<%- include('partials/footer') %>
